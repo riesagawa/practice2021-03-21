@@ -1,0 +1,311 @@
+$color-main:#3f51b5;
+$color-sub:#9fa3b9;
+$color-accent:#e81919;
+$color-text:#333333;
+
+//最大幅の定義
+$layout-width-inner:1200px;
+//ブレークポイントの定義
+$breakpoints:(
+'sp': '(max-width:767px)',
+'tab': '(min-width:768px) and (max-width:#{$layout-width-inner})',
+'pc': '(min-width:#{$layout-width-inner})',
+);
+//メディアクエリ用のmixinを定義。
+@mixin mq($breakpoint: sp){
+  @media #{map-get($breakpoints,$breakpoint)}{
+    @content;
+}
+}
+
+*,
+*::before,
+*::after{
+  box-sizing:border-box;
+}
+
+body{
+  font-family:"游ゴシック体", YuGothic, "游ゴシック Medium", "Yu Gothic Medium", "游ゴシック", "Yu Gothic", sans-serif;
+  font-size:16px;
+  line-height:1.6;
+  background-color: #fff;
+  color:$color-text;
+  margin:0;
+}
+img{
+  max-width: 100%;
+  height:auto;
+}
+ul,ol{
+  list-style: none;
+  padding:0;
+  margin:0;
+}
+h1,h2,h3,h4,h5,h6{
+  padding:0;
+  margin:0;
+}
+a{
+  color:inherit;
+  //inherit=親要素の色を継承し自動的に色がつくようにする
+}
+.inner{
+  width:$layout-width-inner;
+  max-width: 100%;
+  margin: 0 auto;
+}
+//-----------------------------------
+//-----------------------------------
+.header{
+  background-color:$color-main;
+  height:100px;
+  box-shadow:0 3px 3px rgba(#000,0.16);
+  position:fixed;
+  width:100%;//fixedは幅が無くなるため。
+  z-index:10;
+  top:0;
+  left:0;
+  @include mq('sp'){
+  height:110px;
+  }
+}
+.header__inner{
+  display: flex;
+  align-items:center;
+  @include mq('sp'){
+  // width:100%:
+  padding:0 15px;
+  flex-direction:column;
+  }
+}
+
+.header__logo{
+  width:205px;
+  height:40px;
+  @include mq('sp'){
+  width:150px;
+  margin:10px;
+  }
+}
+.header__nav{
+color:#fff;
+display:flex;
+align-items:center;
+margin-left:auto;
+
+  li{
+    width:100px;
+    height:100px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    @include mq('sp'){
+    width:15%;
+    height:50px;
+    font-size:12px;
+    margin:0 5%;
+    }
+    a{
+      text-decoration:none;
+    }
+  }
+}
+ul.header__nav{
+  @include mq('sp'){
+  margin:0;
+  width:100%;
+  }
+}
+.is-active{
+  border-top: 2px solid $color-accent;
+}
+.main-visual{
+  height:600px;
+  width:100%;
+  background:url(../img/mainvisual.png)no-repeat center center / cover;
+  position:relative;
+  text-align: center;
+  margin-top: 100px;
+  @include mq('sp'){
+  margin-top: 110px;
+  height:400px;
+  }
+
+}
+//-----------------------------------
+//-----------------------------------
+.main-visual__content{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:100%;
+  padding:0 15px;
+}
+.main-visual__title{
+  font-size: 64px;
+  font-weight:700;
+  @include mq('sp'){
+    font-size:36px;
+    padding:5%;
+  }
+}
+.main-visual__lead{
+  font-size: 24px;
+  font-weight:700;
+  margin-top:24px;
+  
+  @include mq('sp'){
+    font-size:18px;
+    margin-top: 18px;
+    line-height:1.2;
+  }
+}
+.main-visual__button{
+  margin-top:36px;
+  @include mq('sp'){
+    margin-top:28px;
+  }
+  a{
+    display:inline-block;
+    width:390px;
+    max-width:100%;
+    //ボタンに固定値の幅を指定するとレスポンシブ
+    //の時画面からはみ出るので、max-widthを
+    // セットで記述しておく。
+    height:80px;
+    line-height:80px;
+    font-size: 24px;
+    font-weight: 700;
+    color:#fff;
+    background-color:$color-main;
+    text-decoration:none;
+    border-radius:8px;
+    box-shadow: 0px 3px 6px rgba(#000,0.16);;
+    @include mq('sp'){
+      width:280px;
+      height: 60px;
+      font-size:24px;
+      line-height: 60px;
+    }
+  }
+}
+//-----------------------------------
+//-----------------------------------
+.card{
+  background-color:#EFEFEF;
+  padding: 100px 0 120px;
+  @include mq('sp'){
+  padding-top:40px;
+  padding-bottom: 50px;
+  }
+}
+.card__inner{
+
+}
+.card__head{
+  font-size:48px;
+  font-weight:bold;
+  text-align:center;
+  padding-bottom:28px;
+  position:relative;
+  &::after{
+    content:"";
+    position:absolute;
+    //左右中央にバーを配置
+    left:50%;
+    transform: translateX(-50%);
+    //
+    bottom:0;
+    width:60px;
+    height:4px;
+    background:$color-main;
+    @include mq('sp'){
+    width:42px;
+    height:3px;
+    }
+  }
+  @include mq('sp'){
+  font-size:26px;
+  padding-bottom: 14px;
+  }
+}
+.card__items{
+  margin-top:80px;
+  display:flex;
+  flex-wrap: wrap;
+  @include mq('sp'){
+  margin-top: 42px;
+  }
+}
+.card__item{
+  //計算式はちゃんと空白を空けること
+  width:calc(33.3% - 24px * 2 / 3);
+  background-color: #fff;
+  padding:16px;
+  border-radius: 4px;
+  
+  @include mq('pc'){
+    //３列のうち一番左以外のカード
+    &:not(:nth-child(3n + 1)){
+      margin-left:24px;
+    }
+    &:nth-child(n + 4){
+      margin-top: 24px;
+    }
+  }
+  @include mq('tab'){
+    width:calc(50% - 24px * 1 / 2);
+    &:not(:nth-child(2n + 1)){
+      margin-left:24px;
+    }
+    &:nth-child(n + 3){
+      margin-top: 24px;
+    }}
+  @include mq('sp'){
+  width:100%;
+  &:nth-child(n + 2){
+    margin-top: 24px;
+  }}
+}
+.card__img{
+
+  img{
+    width:100%;
+  }
+}
+.card__title{
+  font-size:20px;
+  font-weight:bold;
+  color:#6F7579;
+  margin-top: 16px;
+}
+.card__text{
+  font-size:16px;
+  color:#6F7579;
+  margin-top: 16px;
+  line-height:(24 / 16);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
